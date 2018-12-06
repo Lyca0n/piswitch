@@ -1,23 +1,19 @@
 from pinlist import PinList
+from switch import Switch
 
 # 3rd party modules
 from flask import make_response, abort
 import time
+import json
 
-SWITCHES = {
-    "Pump": {
-        "state": False,
-        "pin": int(PinList.pin1),
-    },
-    "lamp": {
-        "state": False,
-        "pin":  int(PinList.pin2),
-    },
-    "sensor": {
-        "state": False,
-        "pin":  int(PinList.pin3),
-    },
-}
+switch1 = Switch(4, "Lamp")
+switch = Switch(2, "Pump")
+
+
+SWITCHES = [
+        switch,
+        switch1
+    ]
 
 
 def read_all():
@@ -26,40 +22,38 @@ def read_all():
     with the complete lists of switches
     :return:        json string of list of switches
     """
-    return [SWITCHES[key] for key in sorted(SWITCHES.keys())]
+    print(len(SWITCHES))
+    return {"switches" : list(switch.__dict__ for switch in SWITCHES)}
         
 def read_one(label):
-    if label in SWITCHES:
-        switch  = SWITCHES.get(label)
-        
+    swtich=None
+    if label in [item. get_label() for item in SWITCHES]:
+        print(label)
+        switch  = findByName(label)
     else:
         abort(404, "Unable to find record".format(label=label))
         
-    return switch    
+    return switch[0].__dict__
 
 def create(switch):
-    switchName =  switch.get("label", None)
-    pin = switch.get("pin", None)
+    switch = Switch(switch.get("pin", None), switch.get("label", None))
     
-    if switchName not in SWITCHES and PinList.has_value(pin) and switchName is not None:
-        SWITCHES[switchName] = {
-            "state" : False,
-            "pin": pin,
-        }
-        return SWITCHES[switchName], 201
+    if PinList.has_value(switch.get_pin()) and switch.get_label() is not None:
+        SWITCHES.append(switch)
+        return switch.__dict__, 201
     else:
         abort(406, "unable to save")
         
 def update(label, switch):
     
-    if label in SWITCHES:
+    switchRec = findByName(label)
+    
+    if switch != None:
         if PinList.has_value(switch.get('pin')):
-            SWITCHES[label]["pin"] = switch.get('pin')
+            switchRec.set_label(switch.get('pin'))
         else: 
             abort(406, "pin output does not exists")
-        SWITCHES[label]["state"] = switch.get('state')
-        
-        return SWITCHES[label]
+        return switchRec
     else:
         abort(404, "switch not found")
         
@@ -72,4 +66,19 @@ def delete(label):
     else:
         abort(404, "swtich {label} not found")
         
-    
+def toggle(label):
+    if label in SWITCHES:
+        SWITCHES[label]["state"] = not SWITCHES[label]["state"]
+        return  SWITCHES[label]["state"]
+    else:
+        abort(404, "swtich {label} not found")
+            
+            
+def findByName(label):          
+    swtich=None
+    switchFiltered  = filter(lambda x: x.get_label() == label, SWITCHES)
+    if len(switchFiltered)>0:
+        switch = switchFiltered[0]
+        
+    return switch
+        

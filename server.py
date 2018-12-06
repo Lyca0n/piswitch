@@ -6,6 +6,11 @@ Main module of the server file
 import os
 from flask import render_template
 import connexion
+"""
+import RPi.GPIO as GPIO
+uncomment this at raspberry pi 
+GPIO.setmode(GPIO.BCM)
+""" 
 
 
 # Create the application instance

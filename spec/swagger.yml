@@ -235,7 +235,7 @@ paths:
       parameters:
         - name: label
           in: path
-          description: labelof the switch to update in the list
+          description: label of the switch to update in the list
           type: string
           required: True
         - name: switch
@@ -247,11 +247,27 @@ paths:
                 type: string
               pin:
                 type: integer
-              state:
-                type: boolean               
       responses:
         200:
           description: Successfully updated switch in switches list          
+
+  /switches/{label}/toggle:  
+    put:
+      operationId: switches.toggle
+      tags:
+        - switches
+      summary: Update a switch in the switches list
+      description: Update a switch in the switches list
+      parameters:
+        - name: label
+          in: path
+          description: label of the switch to update in the list
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully updated switch in state
+          
   /pins:     
     get:
       operationId: pins.read_all
