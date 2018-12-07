@@ -15,7 +15,6 @@ SWITCHES = [
         switch1
     ]
 
-
 def read_all():
     """
     This function responds to a request for /api/switches
@@ -26,14 +25,13 @@ def read_all():
     return {"switches" : list(switch.__dict__ for switch in SWITCHES)}
         
 def read_one(label):
-    swtich=None
-    if label in [item. get_label() for item in SWITCHES]:
-        print(label)
+    swtich=False
+    if label in [item.get_label() for item in SWITCHES]:
         switch  = findByName(label)
     else:
         abort(404, "Unable to find record".format(label=label))
         
-    return switch[0].__dict__
+    return switch.__dict__
 
 def create(switch):
     switch = Switch(switch.get("pin", None), switch.get("label", None))
@@ -47,19 +45,21 @@ def create(switch):
 def update(label, switch):
     
     switchRec = findByName(label)
-    
-    if switch != None:
+    if switchRec != False:
         if PinList.has_value(switch.get('pin')):
-            switchRec.set_label(switch.get('pin'))
+            switchRec.set_pin(switch.get('pin'))
+            switchRec.set_label(switch.get('label'))
         else: 
             abort(406, "pin output does not exists")
-        return switchRec
+        return switchRec.__dict__
     else:
         abort(404, "switch not found")
         
 def delete(label):
-    if label in SWITCHES:
-        del SWITCHES[label]
+    
+    switchRec = findByName(label)
+    if switchRec != False:
+        SWITCHES.remove(switchRec)
         return make_response(
             "{label} successfully deleted", format(label=label),200
         )
@@ -67,15 +67,16 @@ def delete(label):
         abort(404, "swtich {label} not found")
         
 def toggle(label):
-    if label in SWITCHES:
-        SWITCHES[label]["state"] = not SWITCHES[label]["state"]
-        return  SWITCHES[label]["state"]
+    switchRec = findByName(label)
+    if switchRec != False:
+        switchRec.toggle_state()
+        return switchRec.__dict__
     else:
         abort(404, "swtich {label} not found")
             
             
 def findByName(label):          
-    swtich=None
+    swtich=False
     switchFiltered  = filter(lambda x: x.get_label() == label, SWITCHES)
     if len(switchFiltered)>0:
         switch = switchFiltered[0]
