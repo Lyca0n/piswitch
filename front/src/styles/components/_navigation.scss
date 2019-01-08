@@ -1,0 +1,36 @@
+.navigation {
+  background: $deep-violet;
+}
+
+.navigation__container {
+  margin: 0 auto;
+  padding: 0 $m-size;
+  max-width: 100vh; 
+}
+
+.navigation__content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: $s-size 0;
+  flex-wrap: wrap;
+}
+
+.navigation__title {
+  color: $neutral-teal;
+  text-decoration: none;
+  h1 {
+    margin: 0;
+  }
+}
+.navigation__nav__link {
+  color: $off-white;
+  border-radius: 2px;
+  background: $soft-purpule;
+  text-decoration: none;
+  margin : 0%;
+  padding: $s-size;  
+  a {    
+    margin: 0;
+  }
+}

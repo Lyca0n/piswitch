@@ -1,0 +1,38 @@
+.box-layout {
+  align-items: flex-start;
+  justify-content: center;
+  display: flex;  
+  flex-direction: column;
+  height: auto; 
+  width: auto; 
+  max-width: 1920px; 
+  max-height: 100vh;
+  
+  /* This aligns items to the end line on main-axis */  
+}
+.box-layout__slider{
+  z-index: -1;    
+}
+
+.front {
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.back {    
+  margin: 0 auto;  
+}
+
+.box-layout__box {  
+  z-index: 1;    
+  background: fade-out($off-white, .15);
+  border-radius: 3px;
+  text-align: center;
+  width: 100% ;
+  margin-top: 0%;
+}
+
+.box-layout__title {
+  margin: 0 0 $m-size 0;
+  line-height: 1;
+}
