@@ -4,7 +4,7 @@ const switchesReducerDefaultState = [
     {
       label: "Pump",
       pin: 2,
-      state: false
+      state: true
     },
     {
       label: "Lamp",

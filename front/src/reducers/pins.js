@@ -27,7 +27,7 @@ const pinsReducerDefaultState = [
 
 import * as ActionTypes from '../constants/ActionTypes';
 
-export default (state = wishlistsReducerDefaultState, action) => {
+export default (state = pinsReducerDefaultState, action) => {
     switch (action.type) {
         case ActionTypes.ADD_PINS:
             return action.pins;
