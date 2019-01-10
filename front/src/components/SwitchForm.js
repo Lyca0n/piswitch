@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import pinsAvail from '../selectors/pins-available';
 //import moment from 'moment';
 
 class SwitchForm extends React.Component {
@@ -78,7 +79,7 @@ class SwitchForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        pins: state.pins
+        pins: pinsAvail(state.pins,state.switches)
     };
 };
 
