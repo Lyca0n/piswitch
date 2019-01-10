@@ -6,4 +6,6 @@ export const ADD_SWITCH = 'ADD_SWITCH';
 export const ADD_SWITCHES = 'ADD_SWITCHES';
 export const REMOVE_SWITCH= 'REMOVE_SWITCH';
 export const ADD_PINS = 'ADD_PINS';
+export const PINS_FAILED ='PINS_FAILED';
 export const TOGGLE_SWITCH = 'TOGGLE_SWITCH';
+export const EDIT_SWITCH='EDIT_SWITCH';

@@ -20,10 +20,21 @@ export default (state = switchesReducerDefaultState, action) => {
             return [...state, action.switch];
         case ActionTypes.ADD_SWITCHES:
             return action.switches;
+        case ActionTypes.EDIT_SWITCH:
+            return state.map((itm) => {
+                if (itm.pin == action.pin) {
+                    return {
+                        ...itm,
+                        ...action.data
+                    }
+                } else {
+                    return itm;
+                }                            
+            });
         case ActionTypes.REMOVE_SWITCH:
-            return state.filter(({ pin }) => pin !== action.pin);
+    return state.filter(({ pin }) => pin !== action.pin);
         default:
-            return state;
-    }
+    return state;
+}
 
 }

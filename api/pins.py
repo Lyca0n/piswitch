@@ -8,4 +8,4 @@ def read_all():
     with the complete lists of application/json
     :return:        json string of list of application/json
     """
-    return {"pins" :[{pin.name : pin.value} for pin in sorted(PinList)]}
+    return {"pins" :[{'number' : pin.value} for pin in sorted(PinList)]}

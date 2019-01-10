@@ -1,4 +1,5 @@
 import * as ActionTypes from '../constants/ActionTypes';
+import * as API from '../constants/API';
 
 export const addSwitches = (switches)=>({
     type: ActionTypes.ADD_SWITCHES,
@@ -15,9 +16,26 @@ export const removeSwitch = ({ id } = {}) => ({
     id
 });
 
-export const startAddSwitch = (switchinfo)=>{
+export const startAddSwitch = (switchinfo={})=>{
     return (dispatch, getState)=>{
-        //Axios call        
-        dispatch(addSwitch(switchinfo));
+        const{
+            label='',
+            pin=0,
+            state=false
+        }= switchinfo;        
+        const switchitm = {label,pin,state};        
+        dispatch(addSwitch(switchitm));
+    }
+};
+
+export const editSwitch=(id,data)=>({
+    type: ActionTypes.EDIT_SWITCH,
+    pin:id,
+    data:data
+});
+
+export const startEditSwitch = (id, data)=>{
+    return(dispatch, getState)=>{
+        dispatch(editSwitch(id,data));
     }
 };

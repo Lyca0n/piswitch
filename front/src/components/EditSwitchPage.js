@@ -5,7 +5,7 @@ import {startEditSwitch} from '../actions/switches';
 
 class EditSwitchPage extends React.Component {
     onSubmit = (switchinfo) => {        
-        this.props.startEditSwitch(switchinfo);            
+        this.props.startEditSwitch(this.props.switchinfo.pin,switchinfo);            
         this.props.history.push('/');
     };    
 
@@ -37,8 +37,8 @@ class EditSwitchPage extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        startEditSwitch: (switchinfo) => {
-            dispatch(startEditSwitch(switchinfo));
+        startEditSwitch: (id, switchinfo) => {
+            dispatch(startEditSwitch(id,switchinfo));
         }
     }
 };

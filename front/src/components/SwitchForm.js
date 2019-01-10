@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import pinsAvail from '../selectors/pins-available';
+import { startAddPins } from '../actions/pins';
 //import moment from 'moment';
 
 class SwitchForm extends React.Component {
@@ -12,6 +13,10 @@ class SwitchForm extends React.Component {
             focused: false,
             error: ''
         };
+    }
+
+    componentWillMount(){
+        this.props.fetchPins();
     }
 
     onLabelChange = (e) => {
@@ -33,7 +38,7 @@ class SwitchForm extends React.Component {
         } else {
             this.setState(() => ({ error: '' }));
             this.props.onSubmit({
-                pin: this.state.pin,
+                pin: parseInt(this.state.pin,10),
                 label: this.state.label
             });            
         }
@@ -82,6 +87,13 @@ const mapStateToProps = (state) => {
         pins: pinsAvail(state.pins,state.switches)
     };
 };
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        fetchPins: ()=>{
+            dispatch(startAddPins);
+        }
+    }
+}
 
 //"connect()"" returns a function to recieve the component name
-export default connect(mapStateToProps)(SwitchForm);
+export default connect(mapStateToProps,mapDispatchToProps)(SwitchForm);
