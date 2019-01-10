@@ -18,4 +18,20 @@
   background: #888;
 }
 
-.button--unactive {}
+.button--active{
+  background:$aqua;
+  color:$dark-grey;
+}
+
+.button--unactive{
+  background:$dark-grey;  
+}
+
+.button--appliance {
+  border-radius: .45rem;
+  transition: border-radius .4s ease;
+  &:hover{
+    border-radius: 5rem;
+    opacity: 0.9;
+  }
+}

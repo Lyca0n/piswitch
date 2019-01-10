@@ -6,3 +6,4 @@ export const ADD_SWITCH = 'ADD_SWITCH';
 export const ADD_SWITCHES = 'ADD_SWITCHES';
 export const REMOVE_SWITCH= 'REMOVE_SWITCH';
 export const ADD_PINS = 'ADD_PINS';
+export const TOGGLE_SWITCH = 'TOGGLE_SWITCH';

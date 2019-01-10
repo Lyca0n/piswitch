@@ -56,8 +56,13 @@
 
 .list-item__data {
   margin: $s-size 0 0 0;
+  display: flex;
+  justify-content: space-between;
   @media (min-width: $desktop-breakpoint) {
     margin: 0;
     padding-left: $s-size;
   }
+  >*{
+    margin: $s-size;
+  }  
 }
