@@ -1,3 +1,6 @@
+
+import * as ActionTypes from '../constants/ActionTypes';
+
 const pinsReducerDefaultState = [
     {
         "number": 2
@@ -24,8 +27,6 @@ const pinsReducerDefaultState = [
         "number": 27
     }
 ];
-
-import * as ActionTypes from '../constants/ActionTypes';
 
 export default (state = pinsReducerDefaultState, action) => {
     switch (action.type) {

@@ -8,7 +8,7 @@ const DashboardPage = () => (
     <div className="content-container">
       <h1 className="page-header__title">Switch List</h1>
       <div className="page-header__actions">
-        <Link className="button" to="/">Add Switch</Link>
+        <Link className="button" to="/add">Add Switch</Link>
       </div>
     </div>
   </div>
