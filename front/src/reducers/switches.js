@@ -1,16 +1,7 @@
 import * as ActionTypes from '../constants/ActionTypes';
 
 const switchesReducerDefaultState = [
-    {
-        label: "Pump",
-        pin: 2,
-        state: true
-    },
-    {
-        label: "Lamp",
-        pin: 4,
-        state: false
-    }
+
 ];
 
 

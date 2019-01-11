@@ -9,3 +9,4 @@ export const ADD_PINS = 'ADD_PINS';
 export const PINS_FAILED ='PINS_FAILED';
 export const TOGGLE_SWITCH = 'TOGGLE_SWITCH';
 export const EDIT_SWITCH='EDIT_SWITCH';
+export const SWITCHES_FAILED ='SWITCHES_FAILED';

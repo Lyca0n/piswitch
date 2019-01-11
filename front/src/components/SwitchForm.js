@@ -90,7 +90,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps=(dispatch)=>{
     return{
         fetchPins: ()=>{
-            dispatch(startAddPins);
+            dispatch(startAddPins());
         }
     }
 }

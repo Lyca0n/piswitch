@@ -1,14 +1,14 @@
 import * as ActionTypes from '../constants/ActionTypes';
 import * as API from '../constants/API';
 
-
 export const addPins = (pins)=>({
     type: ActionTypes.ADD_PINS,
     pins
 });
 
-export const startAddPins=(dispatch)=>{
-    return fetch(API.BASE_URL+'/pins').then(
+export const startAddPins=()=>{
+    return (dispatch,getState) => {
+        fetch(API.BASE_URL+'/pins').then(
         response => {
             if(response.ok){
                 return response;
@@ -23,10 +23,11 @@ export const startAddPins=(dispatch)=>{
         })
         .then(response => response.json())        
         .then(pins =>{
-            dispatch(addPins(pins.pins))
-            console.log(pins);
+            dispatch(addPins(pins.pins));  
+            console.log(pins)
         })
         .catch(error=> dispatch(pinsFailed(error.message)));
+    }
 };
 
 export const pinsFailed=(error)=>({

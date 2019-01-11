@@ -29,9 +29,12 @@
 
 .button--appliance {
   border-radius: .45rem;
-  transition: border-radius .4s ease;
+  transition: border-radius .5s ease;
   &:hover{
     border-radius: 5rem;
     opacity: 0.9;
+  }
+  &:focus{
+    outline:none;
   }
 }
