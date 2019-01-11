@@ -23,8 +23,7 @@ export const startAddPins=()=>{
         })
         .then(response => response.json())        
         .then(pins =>{
-            dispatch(addPins(pins.pins));  
-            console.log(pins)
+            dispatch(addPins(pins.pins));              
         })
         .catch(error=> dispatch(pinsFailed(error.message)));
     }

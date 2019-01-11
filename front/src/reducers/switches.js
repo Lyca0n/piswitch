@@ -20,12 +20,24 @@ export default (state = switchesReducerDefaultState, action) => {
                     }
                 } else {
                     return itm;
-                }                            
+                }
+            });
+        case ActionTypes.TOGGLE_SWITCH:
+            return state.map((itm) => {
+                if (itm.pin == action.pin) {
+                    const state = !itm.state
+                    return {
+                        ...itm,
+                        ...{state}
+                    }
+                } else {
+                    return itm;
+                }
             });
         case ActionTypes.REMOVE_SWITCH:
-    return state.filter(({ pin }) => pin !== action.pin);
+            return state.filter(({ pin }) => pin !== action.pin);
         default:
-    return state;
-}
+            return state;
+    }
 
 }

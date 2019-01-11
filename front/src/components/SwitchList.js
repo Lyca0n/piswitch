@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SwitchListItem from './SwitchListItem';
-import { startAddSwitches } from '../actions/switches';
+import { startAddSwitches, startToggleSwitch } from '../actions/switches';
 
 class SwitchList extends React.Component {
-    constructor(props){
+    constructor(props){        
         super(props);
-    }
-    componentWillMount(){
         this.props.startAddSwitches();
+    }
+    startToggleSwitch = (pin) =>{
+        this.props.startToggleSwitch(pin);
     }
     render(){
         return(
@@ -19,12 +20,13 @@ class SwitchList extends React.Component {
                 </div>
                 <div className="list-body">
                     {this.props.switches.length === 0 ? (
+                        
                         <div className="list-item list-item--message">
                             <span>No switches</span>
                         </div>
                     ) : (
-                            this.props.switches.map((switchItm) => {
-                                return <SwitchListItem key={switchItm.pin} {...switchItm} />
+                            this.props.switches.map((switchItm) => {                                
+                                return <SwitchListItem  startToggleSwitch={this.props.startToggleSwitch} key={switchItm.pin} itm={switchItm} />
                             })
                         )}
                 </div>
@@ -42,7 +44,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps=(dispatch)=>{
     return{
-        startAddSwitches: ()=>{dispatch(startAddSwitches())}
+        startAddSwitches: ()=>{dispatch(startAddSwitches())},    
+        startToggleSwitch: (pin)=>{dispatch(startToggleSwitch(pin))}
     }    
 }
 
