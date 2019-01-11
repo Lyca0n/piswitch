@@ -7,7 +7,7 @@ import time
 class GPIOPort:
     def __init__(self, pin):
         
-        self._pin = pin
+        self.pin = pin
         #GPIO.setup(pin, GPIO.OUT)
         #GPIO.output(pin, GPIO.HIGH)
 
@@ -16,9 +16,9 @@ class GPIOPort:
        #GPIO.cleanup()
 
     def turnOn(self): 
-        #GPIO.output(self._pin, GPIO.LOW)
+        #GPIO.output(self.pin, GPIO.LOW)
         return True
 
     def turnOff(self): 
-        #GPIO.output(self._pin, GPIO.HIGH) 
+        #GPIO.output(self.pin, GPIO.HIGH) 
         return True
