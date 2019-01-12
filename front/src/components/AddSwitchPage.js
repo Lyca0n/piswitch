@@ -13,7 +13,7 @@ class AddSwitchPage extends React.Component {
             <div>
                 <div className="page-header">
                     <div className="content-container">
-                        <h1 className="page-header__title">Add a Switch</h1>
+                        <h1 className="page-header__title">Add a Appliance</h1>
                     </div>
                 </div>
                 <div className="content-container">
