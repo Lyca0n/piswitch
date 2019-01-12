@@ -29,7 +29,7 @@ def read_one(pin):
     if pin in [item.get_pin() for item in SWITCHES]:
         switch  = findByPin(pin)
     else:
-        abort(404, "Unable to find record".format(label=label))        
+        abort(404, "Unable to find record".format(pin=pin))        
     return switch.__dict__
 
 def create(switch):

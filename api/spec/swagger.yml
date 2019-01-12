@@ -130,7 +130,7 @@ paths:
         200:
           description: Successfully updated switch in switches list          
 
-  /switches/{label}/toggle:  
+  /switches/{pin}/toggle:  
     put:
       operationId: switches.toggle
       tags:
@@ -138,10 +138,10 @@ paths:
       summary: Update a switch in the switches list
       description: Update a switch in the switches list
       parameters:
-        - name: label
+        - name: pin
           in: path
           description: label of the switch to update in the list
-          type: string
+          type: integer
           required: True
       responses:
         200:
