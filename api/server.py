@@ -7,11 +7,10 @@ import os
 from flask import render_template
 from flask_cors import CORS
 import connexion
-"""
 import RPi.GPIO as GPIO
-uncomment this at raspberry pi 
+
 GPIO.setmode(GPIO.BCM)
-""" 
+
 
 
 # Create the application instance
