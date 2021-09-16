@@ -1,7 +1,7 @@
 from pinlist import PinList
 import uuid
 
-pins = {"pins" :[{'number' : pin.value, 'id': uuid.uuid4() } for pin in sorted(PinList)]}
+pins = {"pins" :[{'number' : pin.value, 'id': str(uuid.uuid4()) } for pin in sorted(PinList)]}
  
 
 def read_all():

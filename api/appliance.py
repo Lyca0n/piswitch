@@ -8,11 +8,11 @@ class Appliance(GPIOPort):
         GPIOPort.__init__(self,pin)
         self.state = False
         self.label = label     
-        self.id = uuid.uuid4()    
+        self.id = str(uuid.uuid4())
         
     def set_label(self,label):
         self.label = label
-        
+
     def get_id(self):
         return self.id      
           

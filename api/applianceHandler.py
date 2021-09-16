@@ -24,9 +24,7 @@ def read_all():
     print(len(APPLIANCES))
     return {"appliances" : list(appliance.__dict__ for appliance in APPLIANCES)}
         
-def read_one(id):
-    print(id)
-    appliance = False    
+def read_one(id): 
     appliance = findById(id)
     if appliance == False:
         abort(404, "Unable to find record".format(id=id))        
@@ -71,8 +69,7 @@ def toggle(id):
         abort(404, "swtich {id} not found")            
 
 def findById(id):          
-    appliance=False
-    print(APPLIANCES[0].get_id)
+    appliance=False    
     applianceFiltered  = list(filter(lambda x: x.get_id() == id, APPLIANCES))
     if len(applianceFiltered)>0:
         appliance = applianceFiltered[0]
