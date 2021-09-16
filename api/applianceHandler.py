@@ -29,7 +29,7 @@ def read_one(id):
     appliance = findById(id)
     if appliance == False:
         abort(404, "Unable to find record".format(id=id))        
-    return switch.__dict__
+    return appliance.__dict__
 
 def create(appliance):
     appliance = Appliance(appliance.get("pin", None), appliance.get("label", None))    
