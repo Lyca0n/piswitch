@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useToggleApplianceByIdMutation } from '../services/switches';
 
-const startToggleSwitch = ()=>{}
+
 const SwitchListItem = ({appliance}) => {
 
     const [toggleAppliance] = useToggleApplianceByIdMutation();
