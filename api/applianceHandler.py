@@ -55,7 +55,7 @@ def delete(id):
     if appRec != False:
         APPLIANCES.remove(appRec)
         return make_response(
-            "{id} successfully deleted", format(label=label),200
+            "{id} successfully deleted", format(label=appRec.label),200
         )
     else:
         abort(404, "swtich {id} not found")
