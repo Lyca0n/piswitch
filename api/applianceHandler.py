@@ -25,6 +25,7 @@ def read_all():
     return {"appliances" : list(appliance.__dict__ for appliance in APPLIANCES)}
         
 def read_one(id):
+    print(id)
     appliance = False    
     appliance = findById(id)
     if appliance == False:
