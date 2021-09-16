@@ -26,7 +26,7 @@ def read_all():
         
 def read_one(id):
     appliance=False    
-    appliance  = findByPin(id)
+    appliance  = findById(id)
     if appliance == False:
         abort(404, "Unable to find record".format(pin=pin))        
     return switch.__dict__
@@ -40,7 +40,7 @@ def create(appliance):
         abort(406, "Unable to save")
         
 def update(id, appliance):
-    appRec = findByPin(id)
+    appRec = findById(id)
     if appRec != False:
         if PinList.has_value(appliance.get('pin')):
             appRec.set_pin(appliance.get('pin'))
@@ -52,7 +52,7 @@ def update(id, appliance):
         abort(404, "appliance not found")
         
 def delete(id):    
-    appRec = findById(pin)
+    appRec = findById(id)
     if appRec != False:
         APPLIANCES.remove(appRec)
         return make_response(

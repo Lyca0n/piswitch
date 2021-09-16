@@ -12,6 +12,7 @@ class Appliance(GPIOPort):
         
     def set_label(self,label):
         self.label = label
+        
     def get_id(self):
         return self.id      
           
