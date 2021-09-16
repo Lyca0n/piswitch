@@ -8,7 +8,6 @@ class GPIOPort:
     def __init__(self, pin):
         
         self.pin = pin
-        GPIO.setup(pin, GPIO.OUT)
 
     def __del__(self):        
        GPIO.cleanup()

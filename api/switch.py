@@ -1,17 +1,20 @@
 from port import GPIOPort
 
 import json
-
+import uuid
 
 class Switch(GPIOPort):
     def __init__(self, pin, label):
         GPIOPort.__init__(self,pin)
         self.state = False
-        self.label = label        
+        self.label = label     
+        self.id = uuid.uuid4()    
         
     def set_label(self,label):
         self.label = label
-        
+    def get_id(self):
+        return self.id      
+          
     def get_label(self):
         return self.label               
 
