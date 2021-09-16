@@ -31,7 +31,7 @@ def home():
     localhost:8080/
     :return:        the rendered template "home.html"
     """
-    return render_template("home.html")
+    return render_template("index.html")
 
 def setup():
     for pin in PinList:
