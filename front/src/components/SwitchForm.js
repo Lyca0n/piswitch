@@ -1,99 +1,98 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import pinsAvail from '../selectors/pins-available';
-import { startAddPins } from '../actions/pins';
-//import moment from 'moment';
+import { useGetPinsQuery } from '../services/pins';
+import { useCreateApplianceMutation, useDeleteApplianceByIdMutation,useUpdateApplianceByIdMutation ,useGetAppliancesQuery } from '../services/switches';
 
-class SwitchForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            pin: props.switch ? props.switch.pin : '',
-            label: props.switch ? props.switch.label : '',                      
-            focused: false,
-            error: ''
-        };
-    }
+export const SwitchForm = ({ switchFormData, onSubmit }) => {
 
-    componentWillMount(){
-        this.props.fetchPins();
-    }
+    const { data: switchData } = useGetAppliancesQuery();
+    const pinData = useGetPinsQuery(undefined,
+        {
+            selectFromResult: ({ data }) => {
+                const usedPins = switchData && switchData.appliances ? switchData.appliances.map(itm => itm.pin) : []
+                if (data && data.pins) {
+                    console.log({
+                        pins: [...data.pins.filter(itm => !usedPins.includes(itm.number))]
+                    })
+                    return { ...data, pins: [...data.pins.filter(itm => !usedPins.includes(itm.number))] }
+                }
+                return data;
+            }
+        });
 
-    onLabelChange = (e) => {
-        const label = e.target.value;
-        this.setState(() => ({ label }));
+    const [updateAppliance] = useUpdateApplianceByIdMutation();
+    const [deleteAppliance] = useDeleteApplianceByIdMutation();
+    const [createAppliance] = useCreateApplianceMutation();
+    const [values, setValues] = React.useState({ pin: '', label: '' })
+    const [error, setError] = React.useState();
+
+    React.useEffect(() => {
+        if (switchFormData) {
+            setValues(switchFormData)
+        }
+    }, [switchFormData])
+
+    const onChange = (e) => {
+        const { value, name } = e.target;
+        setValues({ ...values, [name]: value });
     };
-
-    onPinChange = (e) => {
-        const pin = e.target.value;
-        this.setState(() => ({ pin }));
-    };
-    onFocusChange = ({ focused }) => {
-        this.setState(() => ({ focused }))
-    };
-    onSubmit = (e) => {
+    console.log(values)
+    const submit = (e) => {
         e.preventDefault();
-        if (!this.state.pin || !this.state.label) {
-            this.setState(() => ({ error: 'Provide a label and pin' }));
+        if (!values.pin || !values.label) {
+            setError('Provide a label and pin');
         } else {
-            this.setState(() => ({ error: '' }));
-            this.props.onSubmit({
-                pin: parseInt(this.state.pin,10),
-                label: this.state.label
-            });            
+            setError(null);
+            const request = { ...values, pin: parseInt(values.pin, 10) };
+            request.id ? updateAppliance(request)
+            : createAppliance(request);
+            onSubmit()
         }
     };
-    render() {
 
-        if (this.state.hasError) {            
-            return <h1>Something went wrong.</h1>;
-        } else {
-            return (
-                <form className="form" onSubmit={this.onSubmit}>
-                    <div >{this.state.error && <p className="form__error">{this.state.error}</p>}</div>
-                    <input
-                        className="text-input"
-                        type="text"
-                        placeholder="label"
-                        autoFocus
-                        value={this.state.label}
-                        onChange={this.onLabelChange}
-                    />
-                    <select
-                        className="text-input"
-                        value={this.state.pin}
-                        onChange={this.onPinChange}
-                        type="number"
-                        placeholder="Amount"
-                    >
+    const deleteItem = () => {
+        deleteAppliance(values.id)
+    }
+
+    if (pinData.length < 0) {
+        return <h1>Something went wrong.</h1>;
+    } else {
+        return (
+            <form className="form" onSubmit={submit}>
+                <div >{error && <p className="form__error">{error}</p>}</div>
+                <input
+                    className="text-input"
+                    type="text"
+                    placeholder="label"
+                    autoFocus
+                    name="label"
+                    value={values.label}
+                    onChange={onChange}
+                />
+                <select
+                    className="text-input"
+                    value={values.pin}
+                    onChange={onChange}
+                    type="number"
+                    name="pin"
+                    placeholder="Amount"
+                >
                     <option key={0} value={''}>Pin Port</option>
-                    { this.props.pins.map((pin)=>(
+                    {pinData && pinData.pins && pinData.pins.map((pin) => (
                         <option key={pin.number} value={pin.number}>{pin.number}</option>
                     ))}
-                    </select>
-
-                    <div>
+                </select>
+                <div>
                     <button className="button">Save</button>
-                    </div>
-                </form>
+                    {values.id ? (
+                        <button onClick={deleteItem} className="button">Delete</button>
+                    ) : null}
+                </div>
 
-            );
-        }
+            </form>
+
+        );
     }
+
 }
 
-const mapStateToProps = (state) => {
-    return {
-        pins: pinsAvail(state.pins,state.switches)
-    };
-};
-const mapDispatchToProps=(dispatch)=>{
-    return{
-        fetchPins: ()=>{
-            dispatch(startAddPins());
-        }
-    }
-}
-
-//"connect()"" returns a function to recieve the component name
-export default connect(mapStateToProps,mapDispatchToProps)(SwitchForm);
+export default SwitchForm;
