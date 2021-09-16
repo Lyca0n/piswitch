@@ -8,6 +8,7 @@ from flask import render_template
 from flask_cors import CORS
 import connexion
 import RPi.GPIO as GPIO
+from pinlist import PinList
 
 GPIO.setmode(GPIO.BCM)
 
@@ -32,6 +33,11 @@ def home():
     """
     return render_template("home.html")
 
+def setup():
+    for pin in PinList:
+        GPIO.setup(pin.value, GPIO.OUT)
+        GPIO.output(pin.value, GPIO.HIGH)
 
 if __name__ == "__main__":
+    setup()
     app.run(host='0.0.0.0', port=os.getenv('PORT', 8080) ,debug=True)
