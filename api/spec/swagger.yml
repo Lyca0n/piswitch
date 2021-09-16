@@ -56,7 +56,7 @@ paths:
           description: Successfully created appliance in list
 
                   
-  /switches/{pin}:                  
+  /switches/{id}:                  
     get:
       operationId: applianceHandler.read_one
       tags:
