@@ -72,6 +72,7 @@ def toggle(id):
 
 def findById(id):          
     appliance=False
+    print(APPLIANCES[0].get_id)
     applianceFiltered  = list(filter(lambda x: x.get_id() == id, APPLIANCES))
     if len(applianceFiltered)>0:
         appliance = applianceFiltered[0]
