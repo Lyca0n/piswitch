@@ -25,10 +25,10 @@ def read_all():
     return {"appliances" : list(appliance.__dict__ for appliance in APPLIANCES)}
         
 def read_one(id):
-    appliance=False    
-    appliance  = findById(id)
+    appliance = False    
+    appliance = findById(id)
     if appliance == False:
-        abort(404, "Unable to find record".format(pin=pin))        
+        abort(404, "Unable to find record".format(id=id))        
     return switch.__dict__
 
 def create(appliance):
@@ -56,10 +56,10 @@ def delete(id):
     if appRec != False:
         APPLIANCES.remove(appRec)
         return make_response(
-            "{pin} successfully deleted", format(label=label),200
+            "{id} successfully deleted", format(label=label),200
         )
     else:
-        abort(404, "swtich {pin} not found")
+        abort(404, "swtich {id} not found")
         
 def toggle(id):
     appRec = findById(id)
@@ -67,7 +67,7 @@ def toggle(id):
         appRec.toggle_state()
         return appRec.__dict__
     else:
-        abort(404, "swtich {pin} not found")            
+        abort(404, "swtich {id} not found")            
 
 def findById(id):          
     appliance=False
