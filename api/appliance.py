@@ -3,7 +3,7 @@ from port import GPIOPort
 import json
 import uuid
 
-class Switch(GPIOPort):
+class Appliance(GPIOPort):
     def __init__(self, pin, label):
         GPIOPort.__init__(self,pin)
         self.state = False

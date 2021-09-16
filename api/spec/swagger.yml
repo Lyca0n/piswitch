@@ -14,22 +14,11 @@ basePath: /api
 paths:
   /switches:          
     get:
-      operationId: switches.read_all
+      operationId: applianceHandler.read_all
       tags:
-        - switches
-      summary: Read the entire list of switches
-      description: Read the list of switches
-      parameters:
-        - name: length
-          in: query
-          type: integer
-          description: Number of people to get from people
-          required: false
-        - name: offset
-          in: query
-          type: integer
-          description: Offset from beginning of list where to start gathering people
-          required: false
+        - appliances
+      summary: Read the entire list of appliances
+      description: Read the list of appliances
       responses:
         200:
           description: Successfully read swtiches list operation
@@ -43,13 +32,13 @@ paths:
                   type: string
                   
     post:
-      operationId: switches.create
+      operationId: applianceHandler.create
       tags:
-        - switches
-      summary: Create a switch and add it to the switches list
-      description: Create a new switch in the switches list
+        - appliances
+      summary: Create a switch and add it to the appliances list
+      description: Create a new switch in the appliances list
       parameters:
-        - name: switch
+        - name: appliance
           in: body
           description: switch to create
           required: True
@@ -64,21 +53,21 @@ paths:
                 description: pin output
       responses:
         201:
-          description: Successfully created swtich in list
+          description: Successfully created appliance in list
 
                   
   /switches/{pin}:                  
     get:
-      operationId: switches.read_one
+      operationId: applianceHandler.read_one
       tags:
-        - switches
+        - appliances
       summary: Read one switch from the switches list
       description: Read one switch from the switches list
       parameters:
-        - name: pin
+        - name: id
           in: path
-          description: pin of the switch to get from the list
-          type: integer
+          description: id of the switch to get from the list
+          type: string
           required: True
       responses:
         200:
@@ -91,33 +80,33 @@ paths:
                 type: integer
                 
     delete:
-      operationId: switches.delete
+      operationId: applianceHandler.delete
       tags:
-        - switches
-      summary: Delete a switch from the switches list
+        - appliances
+      summary: Delete a switch from the appliances list
       description: Delete a switch
       parameters:
-        - name: pin
+        - name: id
           in: path
           type: string
           required: True
       responses:
         200:
-          description: Successfully deleted a switch from switches list
+          description: Successfully deleted a switch from appliances list
           
     put:
-      operationId: switches.update
+      operationId: applianceHandler.update
       tags:
-        - switches
-      summary: Update a switch in the switches list
-      description: Update a switch in the switches list
+        - appliances
+      summary: Update a appliance in the appliances list
+      description: Update a appliance in the appliances list
       parameters:
-        - name: pin
+        - name: id
           in: path
-          description: pin of the switch to update in the list
+          description: id of the appliance to update in the list
           type: string
           required: True
-        - name: switch
+        - name: appliance
           in: body
           schema:
             type: object
@@ -130,22 +119,22 @@ paths:
         200:
           description: Successfully updated switch in switches list          
 
-  /switches/{pin}/toggle:  
+  /switches/{id}/toggle:  
     put:
-      operationId: switches.toggle
+      operationId: applianceHandler.toggle
       tags:
-        - switches
-      summary: Update a switch in the switches list
-      description: Update a switch in the switches list
+        - appliances
+      summary: Update a appliance in the switches list
+      description: Update a appliance in the switches list
       parameters:
-        - name: pin
+        - name: id
           in: path
-          description: label of the switch to update in the list
-          type: integer
+          description: label of the appliance to update in the list
+          type: string
           required: True
       responses:
         200:
-          description: Successfully updated switch in state
+          description: Successfully updated appliance in state
           
   /pins:     
     get:
